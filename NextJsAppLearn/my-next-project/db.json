@@ -1,0 +1,12 @@
+{
+  "posts": [
+    { "id": 1, "name": "Post about future", "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, est quas. Accusamus aliquid consectetur dolorem dolores eligendi esse, fuga harum inventore ipsam itaque libero nam natus non odio optio, possimus, provident quos ratione rem voluptates. Aperiam asperiores aspernatur delectus eos exercitationem illum incidunt itaque laudantium, natus nulla provident quaerat quidem suscipit tempora, voluptatem? Ad asperiores aut beatae dolorum ea eius esse facilis inventore itaque iure nam placeat, quasi quis repellat, rerum. Accusantium aliquam aliquid aperiam at aut beatae distinctio dolorem dolores, dolorum eaque excepturi impedit ipsam itaque iusto labore laboriosam maiores nam nihil numquam odio odit, placeat quo rerum totam!\n" },
+    { "id": 2, "name": "Post about past", "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, est quas. Accusamus aliquid consectetur dolorem dolores eligendi esse, fuga harum inventore ipsam itaque libero nam natus non odio optio, possimus, provident quos ratione rem voluptates. Aperiam asperiores aspernatur delectus eos exercitationem illum incidunt itaque laudantium, natus nulla provident quaerat quidem suscipit tempora, voluptatem? Ad asperiores aut beatae dolorum ea eius esse facilis inventore itaque iure nam placeat, quasi quis repellat, rerum. Accusantium aliquam aliquid aperiam at aut beatae distinctio dolorem dolores, dolorum eaque excepturi impedit ipsam itaque iusto labore laboriosam maiores nam nihil numquam odio odit, placeat quo rerum totam!\n" },
+    { "id": 3, "name": "Post about nowadays", "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, est quas. Accusamus aliquid consectetur dolorem dolores eligendi esse, fuga harum inventore ipsam itaque libero nam natus non odio optio, possimus, provident quos ratione rem voluptates. Aperiam asperiores aspernatur delectus eos exercitationem illum incidunt itaque laudantium, natus nulla provident quaerat quidem suscipit tempora, voluptatem? Ad asperiores aut beatae dolorum ea eius esse facilis inventore itaque iure nam placeat, quasi quis repellat, rerum. Accusantium aliquam aliquid aperiam at aut beatae distinctio dolorem dolores, dolorum eaque excepturi impedit ipsam itaque iusto labore laboriosam maiores nam nihil numquam odio odit, placeat quo rerum totam!\n" }
+  ],
+  "about":
+    {"text": "Sorry, We don't find this page :("}
+  ,
+  "profile": { "name": "typicode" }
+}
+

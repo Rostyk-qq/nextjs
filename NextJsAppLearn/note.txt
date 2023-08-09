@@ -1,0 +1,300 @@
+в React ми використовуємо spa за допомогою reatc-router-dom
+але основний мінус цього використання:
+
+1. Використовується час бо ми загружаємо багато речей які нам непотрібні
+це ще тому що в SPA громісткий функціонал
+2.  Пошукові роботи неможуть проаналізувати контент тис сторінок які він рендерить
+тобто важливу роль відіграє ceo скільки кліків по ссилці також синтаксну частину
+3. Погана оптимізація рендерингу компонентів
+
+
+тобто spa неоптимізована під ceo коли ми робимо інтернет магазин для прикладу
+і render сторінок створений на spa то пошукові роботи після рендеренгу будуть бачити пусті
+сторінки бо spa працює динамічно
+
+
+поліпшення spa це ssr (server site rendering)
+тобто spa працював на стороні client
+а ssr віддає перевогу працювати на server частині
+
+тобто spa це тільки динамічни render а коли ми використовуємо ssr
+для поліпшення seo і для динамчнї взаємодії client з server
+
+
+next.js містить в собі
+server-side rendering i client-side rendering
+
+що дозволяє надзичайно поліпшити швидкість і seo
+це була водна
+
+
+тепер практика
+//
+npx create-next-app
+npx vs npm
+встановлення за доаомогою npx
+говорить про те що ми це завантаження
+робимо тимчасово
+//
+export default vs export
+export default якшо експортуємо через нього
+то те що ми експортували ми можемо задати імя самі
+бо він екпортує
+наприклад з axios data
+тобто те що не має іменні
+а export те що ми назвали тобто не анонімну функцію
+або клас...
+//
+запуск
+в next.js є
+зарезирвовані імена
+папка pages і перший файл який розлядає next.js це index.tsx
+ВАЖЛИВО імена файлів які є в page будуть також url
+
+
+динаміка і rendering
+
+[] - говорить nextу про динаміку
+
+useRouter() - бере динамічне значення
+const params = useRouter()
+params.query - тобто це те що в нас [].js
+
+Тобто в нас є папка, в якій знаходиться файл.
+Якщо назва папки буде дорівнювати назві файлу,
+то нам в пошуковій стрічці треба буде звертатися 2 рази
+до певної сторінки, щоб цього уникнути нам в папці
+потрібно файл називати index.tsx бо index.tsx в нас є
+заброньованим ім'ям
+
+Meta tags
+в нас index.tsx рахується головним як по render
+а html це body
+і ми маємо 2 в одному
+є meta teg Head для назви сторінки import з next/head
+mete тобто так як в html
+
+Layout
+ми створюємо додатковий component
+є особливість в назві
+приклад: Main.layout.js
+в ньому ми можемо прописувати чистий html jsx
+styles
+
+ <style jsx >{`
+     nav{
+     position: fixed;
+     height: 60px;
+     width: 100vw;
+     left: 0;
+     right: 0;
+     top: 0;
+     background-color: beige;
+     display: flex;
+     align-items: center;
+     }
+     main{
+     margin-top: 65px;
+     }
+ `}</style>
+ в тому самому файлі
+
+ці стилі є локальні тобто для даного компонента
+щоб зробити глобально треба використати global біля jsx
+різниця: тобто якшо ми будумо писати nav в якомусь одному компоненті
+і додамо global то деб ми його не писали він буде той самий
+local для кожного окремо по суті швидший варіант
+
+add links css global
+щоб додати глобальні стилі продуктивно для всього App
+
+ми створюємо _app.tsx
+в якому:
+export default function MyApp({Component, pageProps}){
+    return (
+        <>
+            <Component {...pageProps} />
+            <style jsx global>{`
+                body{
+                    font-family: cursive
+                }
+            `}</style>
+        </>
+    )
+}
+також ми можемо створити окремий css файл і export style
+сюди
+
+кастомна сторінка 404
+приватизоване імя 404.tsx
+тобто назва файлу(папки)
+next.js розуміє що це сторінка з помилкою
+
+примітка про css style
+шоб писати локально для component
+ми можемо використовувати file
+error.module.css тобто як в react js
+
+Mock Server
+
+це просте встановлення json-server
+i fetching через useEffect
+Aле це поганий спосіб
+тому що пошукові роботи не будуть бачити
+того що ми fetchим
+нам потрібно використовувати getInitialProps
+від next:
+
+import fetch from "isomorphic-unfetch";
+це спеціальний fetch
+
+тобто від компонента getInitialProps
+Posts.getInitialProps = async () => {
+    const response = await fetch('http://localhost:5000/posts')
+    const posts = await response.json()
+    return {
+       posts
+    }
+}
+і те що ми повертаємо буде в
+компоненті Posts як props {posts}
+
+також коли ми хочемо запускати 2
+scripts зразу нам потрібно встановити
+npm i -D concurrently
+
+scripts:
+    "mock": "json-server -w db.json -p 5000 -d 450"
+
+коли ми для динаміки
+використовуємо Link
+тобто хочемо за допомогою Link
+перейти на динамічну сторінку
+і щоб уникнути оновлення
+ось синтаксис
+<Link href={'/post/[id]'} as={`post/${router.query.id}`} />
+
+
+в getInitialProps ми передає параметри а воно по назві розумію що це
+так як це Post тобто в getInitialProps hooks не підтримуються
+export default function Post({ post }) {
+    return (
+        <MainLayout title={'Own Post'}>
+            <h1>POST: {post.id}</h1>
+        </MainLayout>
+    );
+}
+
+це називається контекстом
+Post.getInitialProps = async ({ query }) => {
+    const response = await fetch(`http://localhost:5000/posts/${query.id}`);
+    const post = await response.json();
+
+    return {
+        post
+    };
+};
+pathname	Поточний маршрут, шлях сторінки в /pages
+query	Рядок запиту URL-адреси, проаналізований як об'єкт
+asPath	String фактичного шляху (включно із запитом), показаного у браузері
+req	Об'єкт запиту HTTP (лише сервер)
+res	Об'єкт відповіді HTTP (лише сервер)
+err	Об'єкт помилки при виникненні будь-якої помилки під час візуалізації
+
+Loading create
+Post.getInitialProps = async ({ query, req }) => {
+    if (!req){
+        return {post: null}
+    }
+};
+req це сервер частина і коли
+в нас робиться frontend
+наприклад render між сторінками
+тобто до отримання даних тобто request
+то він === null
+
+
+але ліпше і продуктивніше використовувати
+getServerSideProps
+якшо ми використовуємо getServerSide
+він автоматично працює на серверній частині
+тому використовувати req для прогрузки не потрібно
+
+
+тобто якшо нам потрібно суто використовувати server
+ми мусимо використовувати getServerSideProps
+а якшо хочемо комбінувати то
+getInitialProps
+
+
+створення Loading...
+npm nextjs-progressbar
+коли ми його встановили ми його додажмо в _app
+import NextNprogress from 'nextjs-progressbar'
+і він в собі має атрибути стилів
+color startPosition stopDelayMs height
+
+він працює з сервером тобто прогрузка буде встановлена автоматично
+навіть якшо ми будемо використовувати getInitialProps
+
+// прмітка використання в _app.tsx
+<Component {...pageProps}/>
+каже шо ми включаємо дані для використання getInitialProps і getServerSideProps
+
+Поява useEffect === null при встановленні nextjs-progressbar
+шоб уникнути цієї проблемо коли ми встановлюємо залежність
+в нас створюється новий package.json шоб цього уникнути
+нам просто потрібно вказати папку з проектом cd папка в якій є проект і package.json
+
+створення Api
+api endpoints мо можемо створювати власноруч
+в page ми створюємо api
+
+тобто це взаємодія з серверо
+export default function GetId(req, res){
+    // res.statusCode = 200
+    // res.setHeader('Content-Type', 'application/json')
+    // res.end(req.query.id)
+    res.json({id: req.query.id})
+}
+?? якшо ні то
+
+ts
+тобто якшо ми використовуємо ts і хочемо типізувати context next
+{req}: NextPageContext тобто це для всього context
+ліпше використовувати tsc буде добре працювати autocomplete
+
+тобто в query є url параметри шоб їх типізувати
+ми можемо використати такий синтаксис:
+interface PageContext extends NextPageContext{
+    query: {
+        id: string
+    }
+}
+
+також що до api ts
+тобто кастомні api
+req: NextApiRequest
+res: NextApiResponse
+також типізація вкладених однакова
+
+next.config
+тут ми можемо використовувати process.env.Api
+тобто для динамічного url
+без dotenv
+module.exports = {
+    env: {
+        Api: 'http://localhost:5000'
+    }
+}
+і в components process.env.Api який === 'http://localhost:5000'
+
+з dotenv
+ми створюємо .env в ньому:
+Api = http://localhost:5000
+i в next.config.js
+module.exports = {
+    env: {
+        Api: process.env.Api
+    }
+}
